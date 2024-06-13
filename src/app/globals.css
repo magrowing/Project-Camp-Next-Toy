@@ -23,9 +23,12 @@
     @apply flex flex-col gap-[1.6rem];
   }
   .btn-wrapper {
-    @apply flex flex-col gap-[1.6rem] mt-[3.2rem];
+    @apply flex flex-col gap-[1.6rem] mt-[1.2rem];
   }
   .icon-line{
     @apply absolute top-[50%] left-[50%] translate-x-[-50%]  translate-y-[-50%] block w-[0.2rem] h-[1.8rem] bg-primary;
+  }
+  .auth-wrapper {
+    @apply container m-auto flex flex-col justify-center items-center h-[100vh];
   }
 }
