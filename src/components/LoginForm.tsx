@@ -1,6 +1,6 @@
-import Button from './Button';
-import CheckBox from './CheckBox';
-import TextField from './TextField';
+import TextField from './ui/TextField';
+import CheckBox from './ui/CheckBox';
+import Button from './ui/Button';
 
 import { FaGithub } from 'react-icons/fa';
 

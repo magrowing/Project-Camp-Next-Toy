@@ -1,6 +1,6 @@
-import TextField from './TextField';
-import CheckBox from './CheckBox';
-import Button from './Button';
+import TextField from './ui/TextField';
+import CheckBox from './ui/CheckBox';
+import Button from './ui/Button';
 
 export default function RegisterForm() {
   return (

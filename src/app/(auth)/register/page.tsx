@@ -1,4 +1,4 @@
-import Title from '@/components/Title';
+import Title from '@/components/ui/Title';
 import RegisterForm from '@/components/RegisterForm';
 
 export default function Login() {
