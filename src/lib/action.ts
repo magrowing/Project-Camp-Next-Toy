@@ -58,7 +58,7 @@ export async function loginAction(
   }
 
   try {
-    const response = await signIn('credentials', {
+    await signIn('credentials', {
       redirect: false,
       callbackUrl: '/',
       email,

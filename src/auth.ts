@@ -42,4 +42,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async signIn({ user, account }) {
+      console.log('signIn', user, account);
+      return true;
+    },
+    async jwt({ token, user }) {
+      console.log('jwt', token, user);
+      if (user) {
+        token.sub = user.id; // JWT 토큰에 사용자 ID 추가
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.sub) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+  },
 });
