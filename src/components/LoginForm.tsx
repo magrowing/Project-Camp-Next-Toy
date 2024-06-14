@@ -3,7 +3,7 @@
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 
-import { loginAction } from '@/lib/action';
+import { githubLoginAction, loginAction } from '@/lib/action';
 
 import TextField from './ui/TextField';
 import CheckBox from './ui/CheckBox';
@@ -45,7 +45,11 @@ export default function LoginForm() {
         )}
       </form>
       <div className="btn-wrapper">
-        <Button type="button" btnStyleType="full">
+        <Button
+          type="button"
+          btnStyleType="full"
+          onClick={() => githubLoginAction()}
+        >
           <span className="flex items-center justify-center">
             <FaGithub className="w-[2rem] h-[2rem] mr-3" /> GitHub
           </span>

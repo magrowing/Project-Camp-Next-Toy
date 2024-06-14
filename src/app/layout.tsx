@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 
 import { Inter } from 'next/font/google';
 
+import { logoutAction } from '@/lib/action';
+
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,7 +24,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <main>{children}</main>
+        <main>
+          {children}
+          <form action={logoutAction}>
+            <button className="text-white">로그아웃</button>
+          </form>
+        </main>
       </body>
     </html>
   );

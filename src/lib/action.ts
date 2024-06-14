@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 import { hash } from 'bcryptjs';
 
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 
 import connectDB from './db';
 import { User } from './schema';
@@ -69,4 +69,12 @@ export async function loginAction(
   }
 
   redirect('/');
+}
+
+export async function githubLoginAction() {
+  await signIn('github', { callbackUrl: '/' });
+}
+
+export async function logoutAction() {
+  await signOut();
 }

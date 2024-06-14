@@ -1,5 +1,6 @@
 import NextAuth, { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import GitHub from 'next-auth/providers/github';
 import { compare } from 'bcryptjs';
 
 import connectDB from './lib/db';
@@ -41,11 +42,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         };
       },
     }),
+    GitHub({
+      clientId: process.env.AUTH_GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET,
+    }),
   ],
   callbacks: {
     async signIn({ user, account }) {
       console.log('signIn', user, account);
-      return true;
+
+      if (account?.provider === 'github') {
+        const { name, email } = user;
+        await connectDB();
+
+        const existingUser = await User.findOne({
+          email,
+          authProviderId: 'github',
+        });
+
+        if (!existingUser) {
+          // 소셜 가입
+          await new User({
+            name,
+            email,
+            authProviderId: 'github',
+          }).save();
+        }
+
+        const socialUser = await User.findOne({
+          name,
+          authProviderId: 'github',
+        });
+
+        user.id = socialUser?._id || null;
+
+        return true;
+      } else {
+        return true;
+      }
     },
     async jwt({ token, user }) {
       console.log('jwt', token, user);
