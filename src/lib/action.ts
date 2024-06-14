@@ -3,6 +3,8 @@
 import { redirect } from 'next/navigation';
 import { hash } from 'bcryptjs';
 
+import { signIn } from '@/auth';
+
 import connectDB from './db';
 import { User } from './schema';
 
@@ -41,4 +43,30 @@ export async function registerAction(
 
   await user.save();
   redirect('/login');
+}
+
+export async function loginAction(
+  prevState: { success: boolean; message: string },
+  formData: FormData
+) {
+  const email = formData.get('email');
+  const password = formData.get('password');
+  const checkbox = formData.get('checkbox');
+
+  if (!email || !password || checkbox !== 'on') {
+    return { success: false, message: '입력사항들을 확인해주세요!' };
+  }
+
+  try {
+    const response = await signIn('credentials', {
+      redirect: false,
+      callbackUrl: '/',
+      email,
+      password,
+    });
+  } catch {
+    console.error();
+  }
+
+  redirect('/');
 }
